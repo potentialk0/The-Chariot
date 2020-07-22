@@ -8,6 +8,7 @@ public class jPlayer : MonoBehaviour
 {
     Animator anim;
     CharacterController controller;
+    public Transform cameraTransform;
 
     [SerializeField]
     private float moveSpeed = 4f;
@@ -33,6 +34,7 @@ public class jPlayer : MonoBehaviour
     {
         Movement();
         Animation();
+        FollowCamera();
         Test();
     }
 
@@ -91,5 +93,10 @@ public class jPlayer : MonoBehaviour
         }
         if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
             anim.SetInteger("condition", 0);
+    }
+
+    private void FollowCamera()
+    {
+        this.transform.up = cameraTransform.up;
     }
 }
