@@ -97,6 +97,8 @@ public class jPlayer : MonoBehaviour
 
     private void FollowCamera()
     {
-        this.transform.up = cameraTransform.up;
+        Vector3 camground = new Vector3(cameraTransform.position.x, transform.position.y, cameraTransform.position.z);
+        Vector3 dir = (transform.position - camground).normalized;
+        transform.forward = dir;
     }
 }

@@ -454,7 +454,7 @@ MonoBehaviour:
   m_CameraTransform: {fileID: 1387123729}
   m_FollowObject: {fileID: 1869725785}
   m_OffSet: {x: 0, y: 0, z: 0}
-  m_RotSpeed: 600
+  m_RotSpeed: 300
   m_RotSmooth: 15
   m_ZoomSpeed: 300
   m_ZoomSmooth: 10

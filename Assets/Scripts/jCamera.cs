@@ -6,7 +6,7 @@ public class jCamera : MonoBehaviour
 {
 
     public float rotSpeed = 1f;
-    public Transform target;
+    //public Transform target;
     public Transform player;
     float mouseX;
     float mouseY;
@@ -30,9 +30,9 @@ public class jCamera : MonoBehaviour
         mouseY -= Input.GetAxis("Mouse Y") * rotSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
-        transform.LookAt(target);
+        transform.LookAt(player);
 
-        target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        //target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
         player.rotation = Quaternion.Euler(0, mouseX, 0);
     }
 }
