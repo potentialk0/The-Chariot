@@ -32,7 +32,7 @@ public class CameraTest : MonoBehaviour
         {
             m_Rotation.x -= Input.GetAxis("Mouse Y") * m_RotSpeed * Time.smoothDeltaTime;
             m_Rotation.y += Input.GetAxis("Mouse X") * m_RotSpeed * Time.smoothDeltaTime;
-            m_Rotation.x = ModifyRot(m_Rotation.x, RotationXRange.x, RotationXRange.y);
+            //m_Rotation.x = ModifyRot(m_Rotation.x, RotationXRange.x, RotationXRange.y);
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0 || m_TargetDist != m_Dist)
