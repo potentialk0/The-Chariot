@@ -5,11 +5,17 @@ using Unity;
 
 public class jPlayer : MonoBehaviour
 {
+    public enum STATE
+    {
+        CREATE, WALK, ATTACK, DAMAGE, DEAD,
+    }
+
+    [SerializeField]
+    private STATE state;
     Animator anim;
     CharacterController controller;
     public Transform cameraTransform;
-
-    [SerializeField]
+    
     private float moveSpeed = 4f;
     private float currentSpeed = 0f;
     private float speedSmoothVelocity = 0f;
@@ -31,21 +37,65 @@ public class jPlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         mainCameraTransform = Camera.main.transform;
+        state = STATE.CREATE;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
-        Animation();
+        StateProcess();
         FollowCamera();
-        FireProjectile();
         Test();
     }
 
     void Test()
     {
-        Debug.Log(anim.GetInteger("condition"));
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("FireProjectile"));
+        Debug.Log("condition : " + anim.GetInteger("condition"));
+        //Debug.Log("horizontal : " + Input.GetAxisRaw("Horizontal"));
+        //Debug.Log("vertical : " + Input.GetAxisRaw("Vertical"));
+    }
+
+    void ChangeState(STATE e)
+    {
+        if (state == e) return;
+        state = e;
+        switch(state)
+        {
+            case STATE.CREATE:
+                break;
+            case STATE.WALK:
+                break;
+            case STATE.ATTACK:
+                break;
+            case STATE.DAMAGE:
+                break;
+            case STATE.DEAD:
+                break;
+        }
+    }
+
+    void StateProcess()
+    {
+        switch (state)
+        {
+            case STATE.CREATE:
+                ChangeState(STATE.WALK);
+                break;
+            case STATE.WALK:
+                FireProjectile();
+                Movement();
+                MoveAnimation();
+                break;
+            case STATE.ATTACK:
+                FireProjectile();
+                Movement();
+                break;
+            case STATE.DAMAGE:
+                break;
+            case STATE.DEAD:
+                break;
+        }
     }
 
     private void Movement()
@@ -76,15 +126,16 @@ public class jPlayer : MonoBehaviour
         controller.Move(gravityVec * Time.deltaTime);
     }
 
-    private void Animation()
+    private void MoveAnimation()
     {
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementY = Input.GetAxisRaw("Vertical");
-        if(movementY > 0)
+        FireProjectile();
+        if (movementY > 0)
         {
             anim.SetInteger("condition", 1);
         }
-        if(movementY < 0)
+        if (movementY < 0)
         {
             anim.SetInteger("condition", 2);
         }
@@ -111,6 +162,7 @@ public class jPlayer : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            ChangeState(STATE.ATTACK);
             anim.SetInteger("condition", 5);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -120,6 +172,18 @@ public class jPlayer : MonoBehaviour
                 projectilePos = new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z);
             }
             Instantiate(Resources.Load("Prefabs/lightningBall"), new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z), transform.rotation);
+            
         }
+        //if (!anim.GetCurrentAnimatorStateInfo(0).IsName("FireProjectile"))
+        //{
+        //    anim.SetInteger("condition", 0);
+        //    ChangeState(STATE.WALK);
+        //}
+    }
+
+    private void ChangeConditionToZero()
+    {
+        anim.SetInteger("condition", 0);
+        ChangeState(STATE.WALK);
     }
 }
