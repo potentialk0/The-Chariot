@@ -52,6 +52,7 @@ public class CameraTest : MonoBehaviour
         ray.direction = rotationOffset;
         ray.direction.Normalize();
         RaycastHit hit;
+
         if (Physics.Raycast(ray, out hit, m_Dist + CollisionOffset, m_CastLayer))
         {
             Vector3 point = hit.point - ray.direction * CollisionOffset;

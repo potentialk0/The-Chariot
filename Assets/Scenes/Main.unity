@@ -726,6 +726,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 1387123729}
   moveSpeed: 4
+  projectilePos: {x: 0, y: 0, z: 0}
+  projectileDir: {x: 0, y: 0, z: 0}
 --- !u!54 &426567912
 Rigidbody:
   m_ObjectHideFlags: 0

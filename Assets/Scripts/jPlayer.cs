@@ -19,6 +19,11 @@ public class jPlayer : MonoBehaviour
 
     private Transform mainCameraTransform;
 
+    public Vector3 projectilePos;
+    public Vector3 projectileDir;
+
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +39,13 @@ public class jPlayer : MonoBehaviour
         Movement();
         Animation();
         FollowCamera();
+        FireProjectile();
         Test();
     }
 
     void Test()
     {
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
+        Debug.Log(anim.GetInteger("condition"));
     }
 
     private void Movement()
@@ -99,5 +105,21 @@ public class jPlayer : MonoBehaviour
         Vector3 camground = new Vector3(cameraTransform.position.x, transform.position.y, cameraTransform.position.z);
         Vector3 dir = (transform.position - camground).normalized;
         transform.forward = dir;
+    }
+
+    private void FireProjectile()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            anim.SetInteger("condition", 5);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                // projectileDir = new Vector3(hit.point.x, transform.position.y + 1.4f, hit.point.z).normalized;
+                projectilePos = new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z);
+            }
+            Instantiate(Resources.Load("Prefabs/lightningBall"), new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z), transform.rotation);
+        }
     }
 }
