@@ -724,8 +724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc03346aa734ef4d8fe6ad20fa603f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   cameraTransform: {fileID: 1387123729}
-  moveSpeed: 4
   projectilePos: {x: 0, y: 0, z: 0}
   projectileDir: {x: 0, y: 0, z: 0}
 --- !u!54 &426567912

@@ -133,7 +133,7 @@ public class jPlayer : MonoBehaviour
         FireProjectile();
         if (movementY > 0)
         {
-            anim.SetInteger("condition", 1);
+            anim.SetFloat("X", 1);
         }
         if (movementY < 0)
         {
